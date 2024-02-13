@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./oc_lettings_site"
+    ]
+}

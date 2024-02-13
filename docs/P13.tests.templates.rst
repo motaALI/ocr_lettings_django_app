@@ -1,0 +1,53 @@
+P13.tests.templates package
+===========================
+
+Submodules
+----------
+
+P13.tests.templates.test\_index\_page module
+--------------------------------------------
+
+.. automodule:: P13.tests.templates.test_index_page
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.tests.templates.test\_letting\_list\_page module
+----------------------------------------------------
+
+.. automodule:: P13.tests.templates.test_letting_list_page
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.tests.templates.test\_letting\_page module
+----------------------------------------------
+
+.. automodule:: P13.tests.templates.test_letting_page
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.tests.templates.test\_profile\_page module
+----------------------------------------------
+
+.. automodule:: P13.tests.templates.test_profile_page
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.tests.templates.test\_profils\_list\_page module
+----------------------------------------------------
+
+.. automodule:: P13.tests.templates.test_profils_list_page
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13.tests.templates
+   :members:
+   :undoc-members:
+   :show-inheritance:

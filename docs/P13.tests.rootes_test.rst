@@ -1,0 +1,21 @@
+P13.tests.rootes\_test package
+==============================
+
+Submodules
+----------
+
+P13.tests.rootes\_test.test\_root module
+----------------------------------------
+
+.. automodule:: P13.tests.rootes_test.test_root
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13.tests.rootes_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,32 @@
+P13 package
+===========
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   P13.letting
+   P13.oc_lettings_site
+   P13.tests
+   P13.user_profile
+
+Submodules
+----------
+
+P13.manage module
+-----------------
+
+.. automodule:: P13.manage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13
+   :members:
+   :undoc-members:
+   :show-inheritance:

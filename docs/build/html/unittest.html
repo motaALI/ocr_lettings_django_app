@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Documentation &mdash; Letting 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docker Setup for Development" href="docker_setup.html" />
+    <link rel="prev" title="Technologies Used" href="technologies_used.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #a22b02" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Letting
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_usage.html">App usage guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database_structure.html">Database Structure and Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies_used.html">Technologies Used</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Test Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-environment">Testing Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libraries-used">Libraries Used</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-models">Test Cases Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mocking">Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-urls">Test Cases URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Mocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases-template">Test Cases template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker_setup.html">Docker Setup for Development</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #a22b02" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Letting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Test Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/unittest.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="test-documentation">
+<span id="unittest"></span><h1>Test Documentation<a class="headerlink" href="#test-documentation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>This documentation outlines the testing procedures for the <cite>Address</cite> model within the Letting application. The tests ensure that basic CRUD (Create, Read, Update, Delete) operations function correctly for the <cite>Address</cite> model.</p>
+</section>
+<section id="testing-environment">
+<h2>Testing Environment<a class="headerlink" href="#testing-environment" title="Link to this heading"></a></h2>
+<p>The tests are written in Python and leverage the Django framework for web application development. Additionally, the <cite>pytest</cite> library is used for testing.</p>
+</section>
+<section id="libraries-used">
+<h2>Libraries Used<a class="headerlink" href="#libraries-used" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><cite>django.test.Client</cite>: Django’s test client for making requests to views during testing.</p></li>
+<li><p><cite>django.test.TestCase</cite>: Django’s built-in test case class for testing Django applications.</p></li>
+<li><p><cite>django.urls.reverse</cite>: A function for generating URLs for Django views.</p></li>
+<li><p><cite>unittest.mock.patch</cite>: A module for patching objects during testing.</p></li>
+<li><p><cite>pytest</cite>: A testing framework that simplifies writing and executing tests in Python.</p></li>
+</ul>
+</section>
+<section id="test-cases-models">
+<h2>Test Cases Models<a class="headerlink" href="#test-cases-models" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p>test_create_address
+- <strong>Purpose:</strong> This test verifies the creation of an <cite>Address</cite> instance.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Create a new <cite>Address</cite> instance with specified attributes.</p></li>
+<li><p>Save the address.</p></li>
+<li><p>Assert that the address has been assigned a valid ID.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The address is successfully created, and an ID is assigned to it.</p></li>
+</ul>
+</li>
+<li><p>test_read_address
+- <strong>Purpose:</strong> This test verifies the retrieval of an existing <cite>Address</cite> instance from the database.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Create a new <cite>Address</cite> instance with specified attributes.</p></li>
+<li><p>Save the address.</p></li>
+<li><p>Retrieve the address from the database using its ID.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The address is successfully retrieved from the database.</p></li>
+</ul>
+</li>
+<li><p>test_update_address
+- <strong>Purpose:</strong> This test verifies the update of an existing <cite>Address</cite> instance.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Create a new <cite>Address</cite> instance with specified attributes.</p></li>
+<li><p>Save the address.</p></li>
+<li><p>Update the street attribute of the address.</p></li>
+<li><p>Retrieve the updated address from the database.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The address’s street attribute is successfully updated.</p></li>
+</ul>
+</li>
+<li><p>test_delete_address
+- <strong>Purpose:</strong> This test verifies the deletion of an existing <cite>Address</cite> instance.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Create a new <cite>Address</cite> instance with specified attributes.</p></li>
+<li><p>Save the address.</p></li>
+<li><p>Delete the address from the database.</p></li>
+<li><p>Attempt to retrieve the deleted address from the database.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The address is successfully deleted from the database.</p></li>
+</ul>
+</li>
+<li><p>TestAddressModel.test_str_method
+- <strong>Purpose:</strong> This test verifies the string representation of the <cite>Address</cite> model.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Create an <cite>Address</cite> instance using a factory with specified attributes.</p></li>
+<li><p>Check the string representation of the address instance.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The string representation of the address matches the expected format.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="mocking">
+<h2>Mocking<a class="headerlink" href="#mocking" title="Link to this heading"></a></h2>
+<p>Mocking is not explicitly utilized in these tests. However, for future test cases that require mocking, the <cite>unittest.mock</cite> module in Python can be employed to simulate objects or functions.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>These tests ensure the proper functioning of the <cite>Address</cite> model within the Letting application by validating basic CRUD operations and verifying the string representation of the model. Developers can execute these tests to ensure the stability and reliability of the application’s address management functionality.</p>
+</section>
+<section id="test-cases-urls">
+<h2>Test Cases URLs<a class="headerlink" href="#test-cases-urls" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><cite>test_index_view</cite>
+- <strong>Purpose:</strong> Verifies the response status code of the index view.
+- <strong>Procedure:</strong> Sends a GET request to the index view and checks if the response status code is 200.
+- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
+<li><p><cite>test_lettings_index_view</cite>
+- <strong>Purpose:</strong> Verifies the response status code of the lettings index view.
+- <strong>Procedure:</strong> Sends a GET request to the lettings index view and checks if the response status code is 200.
+- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
+<li><p><cite>test_profiles_index_view</cite>
+- <strong>Purpose:</strong> Verifies the response status code of the profiles index view.
+- <strong>Procedure:</strong> Sends a GET request to the profiles index view and checks if the response status code is 200.
+- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
+</ol>
+</section>
+<section id="id1">
+<h2>Mocking<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><cite>test_letting_view_use_factories</cite>
+- <strong>Purpose:</strong> Verifies the rendering of the letting view using factories.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Creates a letting instance using a factory with a mock title.</p></li>
+<li><p>Mocks the <cite>Letting.objects.get</cite> method to return the created letting.</p></li>
+<li><p>Sends a GET request to the letting view.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The response status code should be 200, and the rendered content should contain the mock title.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id2">
+<h2>Conclusion<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>These tests ensure the proper functioning of the views within the Django application by validating their response status codes and content.
+Developers can execute these tests to ensure the stability and reliability of the application’s views.</p>
+</section>
+<section id="test-cases-template">
+<h2>Test Cases template<a class="headerlink" href="#test-cases-template" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><cite>test_letting_details_template</cite>
+- <strong>Purpose:</strong> Verifies the rendering and context of the letting details template.
+- <strong>Procedure:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Creates a Letting instance using a factory with mock data.</p></li>
+<li><p>Mocks the <cite>letting.views.Letting.objects.get</cite> method to return the created Letting instance.</p></li>
+<li><p>Sends a GET request to the letting details view.</p></li>
+<li><p>Asserts that the response status code is 200.</p></li>
+<li><p>Parses the response content as a template and renders it with an empty context.</p></li>
+<li><p>Asserts that the rendered content contains expected HTML elements and context variables.</p></li>
+<li><p>Asserts that the letting function was called with the correct arguments.</p></li>
+</ol>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Expected Outcome:</strong> The template renders correctly with the expected context variables and HTML elements.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id3">
+<h2>Conclusion<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>This test ensures that the letting details template in the Letting application renders correctly with the appropriate context variables.
+Developers can execute this test to ensure the stability and reliability of the letting details view.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="technologies_used.html" class="btn btn-neutral float-left" title="Technologies Used" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="docker_setup.html" class="btn btn-neutral float-right" title="Docker Setup for Development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, OCR, Motawakil ALI ALDOUMA.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

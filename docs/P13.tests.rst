@@ -1,0 +1,30 @@
+P13.tests package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   P13.tests.rootes_test
+   P13.tests.templates
+
+Submodules
+----------
+
+P13.tests.factories module
+--------------------------
+
+.. automodule:: P13.tests.factories
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

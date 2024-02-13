@@ -1,0 +1,10 @@
+P13.letting.management package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: P13.letting.management
+   :members:
+   :undoc-members:
+   :show-inheritance:

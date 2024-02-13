@@ -1,0 +1,62 @@
+P13.letting package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   P13.letting.management
+   P13.letting.migrations
+
+Submodules
+----------
+
+P13.letting.admin module
+------------------------
+
+.. automodule:: P13.letting.admin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.letting.apps module
+-----------------------
+
+.. automodule:: P13.letting.apps
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.letting.models module
+-------------------------
+
+.. automodule:: P13.letting.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.letting.tests module
+------------------------
+
+.. automodule:: P13.letting.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.letting.views module
+------------------------
+
+.. automodule:: P13.letting.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13.letting
+   :members:
+   :undoc-members:
+   :show-inheritance:

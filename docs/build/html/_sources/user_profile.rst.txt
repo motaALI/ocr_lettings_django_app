@@ -1,0 +1,61 @@
+profile package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   P13.user_profile.migrations
+
+Submodules
+----------
+
+P13.user\_profile.admin module
+------------------------------
+
+.. automodule:: P13.user_profile.admin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.user\_profile.apps module
+-----------------------------
+
+.. automodule:: P13.user_profile.apps
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.user\_profile.models module
+-------------------------------
+
+.. automodule:: P13.user_profile.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.user\_profile.tests module
+------------------------------
+
+.. automodule:: P13.user_profile.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+P13.user\_profile.views module
+------------------------------
+
+.. automodule:: P13.user_profile.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: P13.user_profile
+   :members:
+   :undoc-members:
+   :show-inheritance:
