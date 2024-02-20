@@ -9,6 +9,12 @@ ENV PYTHONDONTWRITEBYTECODE 1
 WORKDIR /app
 
 
+# Upgrade pip and install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
@@ -16,8 +22,7 @@ COPY requirements.txt .
 # Upgrade pip and install dependencies
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
-    pip install gunicorn && \
-    apt-get purge -y --auto-remove
+    pip install gunicorn
 
 # Copy the rest of the application code into the container at /app
 COPY . .
@@ -35,7 +40,7 @@ ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
 ENV STATIC_ROOT=/app/staticfiles/
 
 # Set correct permissions for static files
-RUN chmod -R 755 /app/staticfiles/
+# RUN chmod -R 755 /app/staticfiles/
 
 # Run the application using Gunicorn
 CMD ["gunicorn", "oc_lettings_site.wsgi", "--bind", "0.0.0.0:8000"]

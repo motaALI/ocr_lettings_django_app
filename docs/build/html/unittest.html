@@ -7,6 +7,7 @@
   <title>Test Documentation &mdash; Letting 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=045fcb0f" />
 
   
   <!--[if lt IE 9]>
@@ -35,7 +36,7 @@
           
           <a href="index.html" class="icon icon-home">
             Letting
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
+              <img src="_static/logo2.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,11 +59,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#test-cases-models">Test Cases Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mocking">Mocking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-cases-urls">Test Cases URLs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Mocking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Conclusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-cases-template">Test Cases template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Conclusion</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker_setup.html">Docker Setup for Development</a></li>
@@ -195,75 +191,6 @@
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
 <p>These tests ensure the proper functioning of the <cite>Address</cite> model within the Letting application by validating basic CRUD operations and verifying the string representation of the model. Developers can execute these tests to ensure the stability and reliability of the application’s address management functionality.</p>
-</section>
-<section id="test-cases-urls">
-<h2>Test Cases URLs<a class="headerlink" href="#test-cases-urls" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p><cite>test_index_view</cite>
-- <strong>Purpose:</strong> Verifies the response status code of the index view.
-- <strong>Procedure:</strong> Sends a GET request to the index view and checks if the response status code is 200.
-- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
-<li><p><cite>test_lettings_index_view</cite>
-- <strong>Purpose:</strong> Verifies the response status code of the lettings index view.
-- <strong>Procedure:</strong> Sends a GET request to the lettings index view and checks if the response status code is 200.
-- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
-<li><p><cite>test_profiles_index_view</cite>
-- <strong>Purpose:</strong> Verifies the response status code of the profiles index view.
-- <strong>Procedure:</strong> Sends a GET request to the profiles index view and checks if the response status code is 200.
-- <strong>Expected Outcome:</strong> The response status code should be 200.</p></li>
-</ol>
-</section>
-<section id="id1">
-<h2>Mocking<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<ol class="arabic">
-<li><p><cite>test_letting_view_use_factories</cite>
-- <strong>Purpose:</strong> Verifies the rendering of the letting view using factories.
-- <strong>Procedure:</strong></p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Creates a letting instance using a factory with a mock title.</p></li>
-<li><p>Mocks the <cite>Letting.objects.get</cite> method to return the created letting.</p></li>
-<li><p>Sends a GET request to the letting view.</p></li>
-</ol>
-</div></blockquote>
-<ul class="simple">
-<li><p><strong>Expected Outcome:</strong> The response status code should be 200, and the rendered content should contain the mock title.</p></li>
-</ul>
-</li>
-</ol>
-</section>
-<section id="id2">
-<h2>Conclusion<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p>These tests ensure the proper functioning of the views within the Django application by validating their response status codes and content.
-Developers can execute these tests to ensure the stability and reliability of the application’s views.</p>
-</section>
-<section id="test-cases-template">
-<h2>Test Cases template<a class="headerlink" href="#test-cases-template" title="Link to this heading"></a></h2>
-<ol class="arabic">
-<li><p><cite>test_letting_details_template</cite>
-- <strong>Purpose:</strong> Verifies the rendering and context of the letting details template.
-- <strong>Procedure:</strong></p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Creates a Letting instance using a factory with mock data.</p></li>
-<li><p>Mocks the <cite>letting.views.Letting.objects.get</cite> method to return the created Letting instance.</p></li>
-<li><p>Sends a GET request to the letting details view.</p></li>
-<li><p>Asserts that the response status code is 200.</p></li>
-<li><p>Parses the response content as a template and renders it with an empty context.</p></li>
-<li><p>Asserts that the rendered content contains expected HTML elements and context variables.</p></li>
-<li><p>Asserts that the letting function was called with the correct arguments.</p></li>
-</ol>
-</div></blockquote>
-<ul class="simple">
-<li><p><strong>Expected Outcome:</strong> The template renders correctly with the expected context variables and HTML elements.</p></li>
-</ul>
-</li>
-</ol>
-</section>
-<section id="id3">
-<h2>Conclusion<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>This test ensures that the letting details template in the Letting application renders correctly with the appropriate context variables.
-Developers can execute this test to ensure the stability and reliability of the letting details view.</p>
 </section>
 </section>
 
