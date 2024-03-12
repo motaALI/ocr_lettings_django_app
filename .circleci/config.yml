@@ -17,6 +17,36 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install python3-venv docker.io docker-compose
 
+      # Fix broken packages
+      - run:
+          name: Fix broken packages
+          command: |
+            sudo apt-get install -f
+
+      # Check for held packages
+      - run:
+          name: Check for held packages
+          command: |
+            dpkg --get-selections | grep hold
+
+      # Upgrade or install containerd
+      - run:
+          name: Upgrade or install containerd
+          command: |
+            sudo apt-get install containerd
+
+      # Try installing docker.io again
+      - run:
+          name: Install docker.io again
+          command: |
+            sudo apt-get install docker.io
+
+      # Verify docker installation
+      - run:
+          name: Verify docker installation
+          command: |
+            docker --version
+
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       
