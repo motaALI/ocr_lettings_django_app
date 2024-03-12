@@ -34,6 +34,7 @@ jobs:
       - run:
           name: Restart CircleCI executor
           command: sudo systemctl restart circleci
+
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -97,31 +98,32 @@ jobs:
     steps:
       - checkout
 
-      # Build Docker image and tag it as lettings_app
+      # Copy Dockerfile and docker-compose.yml from project directory to CircleCI working directory
+      - run:
+          name: Copy Dockerfile and docker-compose.yml
+          command: cp ../Dockerfile ../docker-compose.yml .
+
+      # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
-          command: |
-            docker build -t lettings_app .
+          command: docker build -t lettings_app -f Dockerfile .
 
       # Authenticate with Docker Hub using access token
       - run:
           name: Authenticate with Docker Hub
-          command: |
-            echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
       # Push Docker image to DockerHub
       - run:
           name: Push Docker image to DockerHub
-          command: |
-            docker tag lettings_app $DOCKERHUB_USERNAME/lettings_app
-            docker push $DOCKERHUB_USERNAME/lettings_app
+          command: docker push $DOCKERHUB_USERNAME/lettings_app
 
       # Deploy using Docker Compose 
       - run:
           name: Deploy using Docker Compose
           command: |
-            scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} lettings_app.tar.gz ubuntu@EC2_PUBLIC_IP:/home/ubuntu
-            ssh -i ~/.ssh/{$LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'tar -xzvf lettings_app.tar.gz && cd lettings_app && docker-compose up -d'
+            scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
+            ssh -i ~/.ssh/{$LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 
 workflows:
   build_and_deploy_workflow:
