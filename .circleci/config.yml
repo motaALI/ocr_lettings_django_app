@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_and_deploy:
+  build:
     docker:
       - image: cimg/python:3.6
 
@@ -63,13 +63,21 @@ jobs:
           paths:
             - "venv"
 
-      # Run unittests
       # Run pytest
       - run:
           name: Run pytest
           command: |
             . venv/bin/activate
             pytest
+
+  deploy:
+    docker:
+      - image: cimg/python:3.6
+
+    working_directory: /home/circleci/project
+
+    steps:
+      - checkout
 
       # Build Docker image and tag it as lettings_app
       - run:
@@ -100,6 +108,11 @@ jobs:
 workflows:
   build_and_deploy_workflow:
     jobs:
-      - build_and_deploy
-
-  
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
