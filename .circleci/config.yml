@@ -15,6 +15,21 @@ jobs:
           name: Start Docker service
           command: sudo service docker start
 
+      # Disable resource limits for Docker
+      - run:
+          name: Disable resource limits for Docker
+          command: sudo sed -i 's/^\(ExecStart=.*\)$/ExecStart=\1 --default-ulimit nofile=1024:1024/' /lib/systemd/system/docker.service
+
+      # Reload Docker service configuration
+      - run:
+          name: Reload Docker service configuration
+          command: sudo systemctl daemon-reload
+
+      # Restart Docker service
+      - run:
+          name: Restart Docker service
+          command: sudo service docker restart
+
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -22,12 +37,10 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install python3-venv docker-compose
 
-      # Install Docker CLI (docker.io) and containerd
+      # Install Docker CLI (docker.io)
       - run:
-          name: Install Docker CLI and containerd
-          command: |
-            sudo apt-get -y install docker.io
-            sudo apt-get -y install containerd
+          name: Install Docker CLI
+          command: sudo apt-get -y install docker.io
 
       # Verify Docker installation
       - run:
@@ -74,12 +87,25 @@ jobs:
           name: Start Docker service
           command: sudo service docker start
 
-      # Install Docker CLI (docker.io) and containerd
+      # Disable resource limits for Docker
       - run:
-          name: Install Docker CLI and containerd
-          command: |
-            sudo apt-get -y install docker.io
-            sudo apt-get -y install containerd
+          name: Disable resource limits for Docker
+          command: sudo sed -i 's/^\(ExecStart=.*\)$/ExecStart=\1 --default-ulimit nofile=1024:1024/' /lib/systemd/system/docker.service
+
+      # Reload Docker service configuration
+      - run:
+          name: Reload Docker service configuration
+          command: sudo systemctl daemon-reload
+
+      # Restart Docker service
+      - run:
+          name: Restart Docker service
+          command: sudo service docker restart
+
+      # Install Docker CLI (docker.io)
+      - run:
+          name: Install Docker CLI
+          command: sudo apt-get -y install docker.io
 
       # Build Docker image using Dockerfile from project directory
       - run:
