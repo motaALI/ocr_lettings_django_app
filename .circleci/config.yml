@@ -10,31 +10,12 @@ jobs:
     steps:
       - checkout
 
-      # Install system dependencies
+      # Install Docker
       - run:
-          name: Install system dependencies
+          name: Install Docker
           command: |
             sudo apt-get update
-            sudo apt-get -y install python3-venv docker-compose
-            sudo apt-get -y install docker.io containerd
-
-      # Fix broken packages
-      - run:
-          name: Fix broken packages
-          command: |
-            sudo apt-get install -f
-
-      # Upgrade or install containerd
-      - run:
-          name: Upgrade or install containerd
-          command: |
-            sudo apt-get install containerd
-
-      # Try installing docker.io again
-      - run:
-          name: Install docker.io again
-          command: |
-            sudo apt-get install docker.io
+            sudo apt-get -y install docker.io
 
       # Verify docker installation
       - run:
