@@ -67,11 +67,6 @@ jobs:
     steps:
       - checkout
 
-      # Start Docker service
-      - run:
-          name: Start Docker service
-          command: sudo service docker start
-
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
