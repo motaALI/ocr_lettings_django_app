@@ -16,6 +16,7 @@ Welcome to Letting's documentation!
    technologies_used
    unittest
    docker_setup
+   deployment_setup
    
 
 

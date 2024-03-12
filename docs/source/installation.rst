@@ -23,7 +23,8 @@ Clone the Repository
 
    ::
 
-      git clone "git link"
+      - HTTPS: git clone https://github.com/motaALI/ocr_lettings_django_app.git
+      - SSH: git clone  git@github.com:motaALI/ocr_lettings_django_app.git
 
 3. Change into the project directory:
 
@@ -32,7 +33,7 @@ Clone the Repository
       cd P13
 
 Create a Virtual Environment
----------------------------
+-----------------------------
 
 1. Create a virtual environment:
 
