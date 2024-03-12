@@ -10,6 +10,11 @@ jobs:
     steps:
       - checkout
 
+      # Start Docker service with elevated privileges
+      - run:
+          name: Start Docker service
+          command: sudo service docker start
+
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -17,10 +22,12 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install python3-venv docker-compose
 
-      # Install Docker CLI (docker.io)
+      # Install Docker CLI (docker.io) and containerd
       - run:
-          name: Install Docker CLI
-          command: sudo apt-get -y install docker.io
+          name: Install Docker CLI and containerd
+          command: |
+            sudo apt-get -y install docker.io
+            sudo apt-get -y install containerd
 
       # Verify Docker installation
       - run:
@@ -61,7 +68,19 @@ jobs:
 
     steps:
       - checkout
-    
+
+      # Start Docker service with elevated privileges
+      - run:
+          name: Start Docker service
+          command: sudo service docker start
+
+      # Install Docker CLI (docker.io) and containerd
+      - run:
+          name: Install Docker CLI and containerd
+          command: |
+            sudo apt-get -y install docker.io
+            sudo apt-get -y install containerd
+
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
