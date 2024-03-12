@@ -9,32 +9,7 @@ jobs:
 
     steps:
       - checkout
-
-      # Start Docker daemon
-      - run:
-          name: Start Docker daemon
-          command: sudo systemctl start docker
-
-      # Check Docker daemon status
-      - run:
-          name: Check Docker daemon status
-          command: sudo systemctl status docker
-
-      # Check Docker socket permissions
-      - run:
-          name: Check Docker socket permissions
-          command: sudo ls -l /var/run/docker.sock
-
-      # Add user to docker group
-      - run:
-          name: Add user to docker group
-          command: sudo usermod -aG docker $USER
-
-      # Restart CircleCI executor
-      - run:
-          name: Restart CircleCI executor
-          command: sudo systemctl restart circleci
-
+      
       # Install system dependencies
       - run:
           name: Install system dependencies
