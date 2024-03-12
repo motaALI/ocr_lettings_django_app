@@ -31,12 +31,12 @@ jobs:
             - "venv"
 
       # Run unittests
+      # Run pytest
       - run:
-          name: Run unittests
+          name: Run pytest
           command: |
             . venv/bin/activate
-            python manage.py test  
-            #TODO vérifier l'exe pytest
+            pytest
 
       # Build Docker image and tag it as lettings_app
       - run:
