@@ -24,12 +24,6 @@ jobs:
           command: |
             sudo apt-get install -f
 
-      # Check for held packages
-      - run:
-          name: Check for held packages
-          command: |
-            dpkg --get-selections | grep hold
-
       # Upgrade or install containerd
       - run:
           name: Upgrade or install containerd
