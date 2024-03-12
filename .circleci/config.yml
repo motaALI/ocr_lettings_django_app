@@ -76,7 +76,7 @@ jobs:
       # Copy Dockerfile and docker-compose.yml from project directory to CircleCI working directory
       - run:
           name: Copy Dockerfile and docker-compose.yml
-          command: cp /P13/Dockerfile /P13/docker-compose.yml .
+          command: cp ../Dockerfile ../docker-compose.yml .
 
       # Build Docker image using Dockerfile from project directory
       - run:
