@@ -10,12 +10,12 @@ jobs:
     steps:
       - checkout
 
-      # Install system dependencies
+      # Install system dependencies including Docker and containerd
       - run:
           name: Install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get -y install python3-venv docker.io docker-compose
+            sudo apt-get -y install python3-venv docker.io containerd.io
 
       # Start Docker service
       - run:
@@ -61,12 +61,12 @@ jobs:
     steps:
       - checkout
 
-      # Install system dependencies
+      # Install system dependencies including Docker and containerd
       - run:
           name: Install system dependencies
           command: |
             sudo apt-get update && \
-            sudo apt-get -y install docker.io docker-compose
+            sudo apt-get -y install docker.io containerd.io
 
       # Start Docker service
       - run:
