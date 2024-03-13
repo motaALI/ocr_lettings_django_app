@@ -10,17 +10,17 @@ jobs:
     steps:
       - checkout
 
+      # Start Docker service with elevated privileges
+      - run:
+          name: Start Docker service
+          command: sudo service docker start
+
       # Install system dependencies
       - run:
           name: Install system dependencies
           command: |
             sudo apt-get update
             sudo apt-get -y install python3-venv docker-compose
-
-      # Start Docker service with elevated privileges
-      - run:
-          name: Start Docker service
-          command: sudo service docker start
 
       # Install Docker CLI (docker.io) and containerd
       - run:
@@ -69,23 +69,6 @@ jobs:
     steps:
       - checkout
 
-      # Install system dependencies
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get -y install docker.io
-      
-      # Increase ulimit for Docker
-      - run:
-          name: Increase ulimit for Docker
-          command: |
-            sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
-            [Service]
-            LimitMEMLOCK=infinity
-            EOF
-            sudo systemctl daemon-reload
-
       # Start Docker service with elevated privileges
       - run:
           name: Start Docker service
@@ -103,12 +86,22 @@ jobs:
           name: Build Docker image
           command: docker build -t lettings_app -f Dockerfile .
 
+      # Authenticate with Docker Hub using access token
+      - run:
+          name: Authenticate with Docker Hub
+          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+
+      # Push Docker image to DockerHub
+      - run:
+          name: Push Docker image to DockerHub
+          command: docker push $DOCKERHUB_USERNAME/lettings_app
+
       # Deploy using Docker Compose 
       - run:
           name: Deploy using Docker Compose
           command: |
             scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
-            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
+            ssh -i ~/.ssh/{$LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 
 workflows:
   build_and_deploy_workflow:
