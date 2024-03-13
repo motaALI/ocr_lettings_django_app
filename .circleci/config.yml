@@ -1,90 +1,86 @@
 version: 2.1
-
 jobs:
   build:
     docker:
       - image: cimg/python:3.6
-
     working_directory: /home/circleci/project
-
     steps:
       - checkout
-
-      # Install system dependencies including Docker and containerd
+      
+      # Install system dependencies
       - run:
           name: Install system dependencies
           command: |
-            sudo apt-get update && \
-            sudo apt-get -y install python3-venv docker.io containerd.io
-
-      # Start Docker service
+            sudo apt-get update
+            sudo apt-get -y install python3-venv docker-compose
+            sudo apt-get -y install docker.io containerd
+      # Fix broken packages
       - run:
-          name: Start Docker service
-          command: sudo service docker start
-
-      # Verify Docker installation
+          name: Fix broken packages
+          command: |
+            sudo apt-get install -f
+      # Upgrade or install containerd
       - run:
-          name: Verify Docker installation
-          command: docker --version
-
-      # Restore Python dependencies cache
+          name: Upgrade or install containerd
+          command: |
+            sudo apt-get install containerd
+      # Try installing docker.io again
+      - run:
+          name: Install docker.io again
+          command: |
+            sudo apt-get install docker.io
+      # Verify docker installation
+      - run:
+          name: Verify docker installation
+          command: |
+            docker --version
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       
-      # Install Python dependencies
       - run:
           name: Install Python dependencies
           command: |
-            python3 -m venv venv && \
-            . venv/bin/activate && \
+            python3 -m venv venv
+            . venv/bin/activate
             pip install -r requirements.txt
-
-      # Save Python dependencies cache
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-
       # Run pytest
       - run:
           name: Run pytest
           command: |
-            . venv/bin/activate && \
+            . venv/bin/activate
             pytest
-
   deploy:
     docker:
       - image: cimg/python:3.6
-
     working_directory: /home/circleci/project
-
     steps:
       - checkout
-
-      # Install system dependencies including Docker and containerd
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update && \
-            sudo apt-get -y install docker.io containerd.io
-
-      # Start Docker service
-      - run:
-          name: Start Docker service
-          command: sudo service docker start
 
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
           command: docker build -t lettings_app -f Dockerfile .
 
+      # Authenticate with Docker Hub using access token
+      - run:
+          name: Authenticate with Docker Hub
+          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+
+      # Push Docker image to DockerHub
+      - run:
+          name: Push Docker image to DockerHub
+          command: docker push $DOCKERHUB_USERNAME/lettings_app
+
       # Deploy using Docker Compose 
       - run:
           name: Deploy using Docker Compose
           command: |
-            scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app && \
-            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
-
+            scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
+            ssh -i ~/.ssh/{$LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 workflows:
   build_and_deploy_workflow:
     jobs:
