@@ -75,6 +75,16 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get -y install docker.io
+      
+      # Increase ulimit for Docker
+      - run:
+          name: Increase ulimit for Docker
+          command: |
+            sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
+            [Service]
+            LimitMEMLOCK=infinity
+            EOF
+            sudo systemctl daemon-reload
 
       # Start Docker service with elevated privileges
       - run:
