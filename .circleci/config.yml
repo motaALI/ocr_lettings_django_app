@@ -108,13 +108,14 @@ jobs:
       - run:
           name: SSH into EC2 instance and add user
           command: |
-             ssh -i "lettings_app_ec2_key.pem" ubuntu@${EC2_PUBLIC_IP} 'getent passwd lettings_app_user > /dev/null || sudo adduser lettings_app_user'
+             ssh -i ${lettings_app_ec2_key} ubuntu@${EC2_PUBLIC_IP} 'getent passwd lettings_app_user > /dev/null || sudo adduser lettings_app_user'
 
       # Configure server (example)
       - run:
           name: Configure server
           command: |
-             ssh -i "lettings_app_ec2_key.pem" ubuntu@EC2_PUBLIC_IP 'sudo apt-get update && sudo apt-get -y install nginx'
+             ssh -i ${lettings_app_ec2_key} ubuntu@EC2_PUBLIC_IP 'sudo apt-get update && sudo apt-get -y install nginx'
+             ssh -i ${lettings_app_ec2_key} ubuntu@ec2-16-171-175-12.eu-north-1.compute.am
 
       # Build Docker image using Dockerfile from project directory
       - run:
