@@ -97,12 +97,19 @@ jobs:
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aws configure set region $AWS_REGION
-
-      # Create EC2 user
+      
+      # Verify AWS configuration
       - run:
-          name: Create EC2 user
+          name: Verify AWS configuration
           command: |
-            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'sudo adduser lettings_app_user'
+            aws configure list
+
+
+      # SSH into EC2 instance and add user if not exists
+      - run:
+          name: Add user to EC2 instance
+          command: |
+            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@${EC2_PUBLIC_IP} 'getent passwd lettings_app_user > /dev/null || sudo adduser lettings_app_user'
 
       # Configure server (example)
       - run:
