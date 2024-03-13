@@ -37,7 +37,13 @@ jobs:
       - run:
           name: Start Docker service
           command: |
-            sudo systemctl start docker
+            sudo nohup dockerd > /dev/null 2>&1 &
+
+      # Wait for Docker service to start
+      - run:
+          name: Wait for Docker service
+          command: |
+            sleep 10
 
       # Verify docker installation
       - run:
