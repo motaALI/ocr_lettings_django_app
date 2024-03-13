@@ -105,6 +105,13 @@ jobs:
             aws configure list
 
 
+      # SSH into EC2 instance and add user if not exists
+      - run:
+          name: Add user to EC2 instance
+          command: |
+            chmod 400 ~/.ssh/${lettings_app_ec2_key}.pem  # Set appropriate permissions
+            ssh -i ~/.ssh/${lettings_app_ec2_key}.pem ubuntu@${EC2_PUBLIC_IP} 'getent passwd lettings_app_user > /dev/null || sudo adduser lettings_app_user'
+
       # Configure server (example)
       - run:
           name: Configure server
