@@ -104,11 +104,18 @@ jobs:
           command: |
             aws configure list
 
+
+      # SSH into EC2 instance and add user if not exists
+      - run:
+          name: Add user to EC2 instance
+          command: |
+            ssh -i ~/.ssh/${lettings_app_ec2_key} ubuntu@${EC2_PUBLIC_IP} 'getent passwd lettings_app_user > /dev/null || sudo adduser lettings_app_user'
+
       # Configure server (example)
       - run:
           name: Configure server
           command: |
-            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'sudo apt-get update && sudo apt-get -y install nginx'
+            ssh -i ~/.ssh/${lettings_app_ec2_key} ubuntu@EC2_PUBLIC_IP 'sudo apt-get update && sudo apt-get -y install nginx'
 
       # Build Docker image using Dockerfile from project directory
       - run:
@@ -129,8 +136,8 @@ jobs:
       - run:
           name: Deploy using Docker Compose
           command: |
-            scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
-            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
+            scp -i ~/.ssh/${lettings_app_ec2_key} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
+            ssh -i ~/.ssh/${lettings_app_ec2_key} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 
 workflows:
   build_and_deploy_workflow:
