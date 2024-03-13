@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Start Docker service
           command: |
-            sudo service docker start || sudo systemctl start docker
+            sudo service docker start
 
       # Verify docker installation
       - run:
