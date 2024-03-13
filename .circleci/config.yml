@@ -104,13 +104,6 @@ jobs:
           command: |
             aws configure list
 
-
-      # SSH into EC2 instance and add user if not exists
-      - run:
-          name: Set permissions for private key
-          command: |
-            chmod 400 ~/.ssh/${lettings_app_ec2_key}
-
       # SSH into EC2 instance and add user if not exists
       - run:
           name: SSH into EC2 instance and add user
