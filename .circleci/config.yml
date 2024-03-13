@@ -10,26 +10,6 @@ jobs:
     steps:
       - checkout
 
-      # Start Docker service with elevated privileges
-      - run:
-          name: Start Docker service
-          command: sudo service docker start
-
-      # Disable resource limits for Docker
-      - run:
-          name: Disable resource limits for Docker
-          command: sudo sed -i 's/^\(ExecStart=.*\)$/ExecStart=\1 --default-ulimit nofile=1024:1024/' /lib/systemd/system/docker.service
-
-      # Reload Docker service configuration
-      - run:
-          name: Reload Docker service configuration
-          command: sudo systemctl daemon-reload
-
-      # Restart Docker service
-      - run:
-          name: Restart Docker service
-          command: sudo service docker restart
-
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -37,10 +17,17 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install python3-venv docker-compose
 
-      # Install Docker CLI (docker.io)
+      # Start Docker service with elevated privileges
       - run:
-          name: Install Docker CLI
-          command: sudo apt-get -y install docker.io
+          name: Start Docker service
+          command: sudo service docker start
+
+      # Install Docker CLI (docker.io) and containerd
+      - run:
+          name: Install Docker CLI and containerd
+          command: |
+            sudo apt-get -y install docker.io
+            sudo apt-get -y install containerd
 
       # Verify Docker installation
       - run:
@@ -82,52 +69,36 @@ jobs:
     steps:
       - checkout
 
+      # Install system dependencies
+      - run:
+          name: Install system dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get -y install docker.io
+
       # Start Docker service with elevated privileges
       - run:
           name: Start Docker service
           command: sudo service docker start
 
-      # Disable resource limits for Docker
+      # Install Docker CLI (docker.io) and containerd
       - run:
-          name: Disable resource limits for Docker
-          command: sudo sed -i 's/^\(ExecStart=.*\)$/ExecStart=\1 --default-ulimit nofile=1024:1024/' /lib/systemd/system/docker.service
-
-      # Reload Docker service configuration
-      - run:
-          name: Reload Docker service configuration
-          command: sudo systemctl daemon-reload
-
-      # Restart Docker service
-      - run:
-          name: Restart Docker service
-          command: sudo service docker restart
-
-      # Install Docker CLI (docker.io)
-      - run:
-          name: Install Docker CLI
-          command: sudo apt-get -y install docker.io
+          name: Install Docker CLI and containerd
+          command: |
+            sudo apt-get -y install docker.io
+            sudo apt-get -y install containerd
 
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
           command: docker build -t lettings_app -f Dockerfile .
 
-      # Authenticate with Docker Hub using access token
-      - run:
-          name: Authenticate with Docker Hub
-          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
-
-      # Push Docker image to DockerHub
-      - run:
-          name: Push Docker image to DockerHub
-          command: docker push $DOCKERHUB_USERNAME/lettings_app
-
       # Deploy using Docker Compose 
       - run:
           name: Deploy using Docker Compose
           command: |
             scp -i ~/.ssh/${LETTINGS_APP_EC2_KEY} docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app
-            ssh -i ~/.ssh/{$LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
+            ssh -i ~/.ssh/${LETTINGS_APP_EC2_KEY} ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 
 workflows:
   build_and_deploy_workflow:
