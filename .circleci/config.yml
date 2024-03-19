@@ -83,6 +83,11 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Preprocess SHA1 hash
+          command: |
+            export DOCKER_TAG=$(echo $CIRCLE_SHA1 | cut -c1-12)
+            
       # Install AWS CLI
       - run:
           name: Install AWS CLI
