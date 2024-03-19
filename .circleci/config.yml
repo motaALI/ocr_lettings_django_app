@@ -108,7 +108,8 @@ jobs:
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
-          command: docker build -t lettings_app
+          command: |
+            docker build -t $DOCKERHUB_USERNAME/lettings_app .
 
       # Authenticate with Docker Hub using access token
       - run:
