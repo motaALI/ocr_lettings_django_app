@@ -84,10 +84,13 @@ jobs:
       - checkout
 
       - run:
-          name: Preprocess SHA1 hash
+          name: Get SHA1 Hash
           command: |
-            export DOCKER_TAG=$(echo $CIRCLE_SHA1 | cut -c1-12)
-            
+            SHA1_HASH=$(git rev-parse HEAD)
+            echo "Commit SHA1 hash: $SHA1_HASH"
+            # Export the SHA1 hash as an environment variable
+            echo "export CIRCLE_SHA1=$SHA1_HASH" >> $BASH_ENV
+
       # Install AWS CLI
       - run:
           name: Install AWS CLI
