@@ -112,32 +112,6 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install docker.io docker-compose
       
-      # Copy Docker Compose file to EC2 instance
-      - run:
-          name: Copy Docker Compose file
-          command: cp docker-compose.yml /home/ubuntu/lettings_app/docker-compose.yml
-
-
-      # Deploy using Docker Compose
-      - run:
-          name: Deploy using Docker Compose
-          command: cd /home/ubuntu/lettings_app && docker-compose up -d
-
-
-      # Configure server
-      - run:
-          name: Configure server
-          command: |
-             echo "$LETTINGS_APP_EC2_KEY" > id_rsa
-             chmod 600 id_rsa
-             cp docker-compose.yml /home/ubuntu/lettings_app/docker-compose.yml
-            #  ssh -i id_rsa ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
-
-      # Deploy using Docker Compose 
-      - run:
-          name: Deploy using Docker Compose
-          command: |
-            cd /home/ubuntu/lettings_app && docker-compose up -d
 
       # Build Docker image using Dockerfile from project directory
       - run:
