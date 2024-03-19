@@ -105,12 +105,12 @@ jobs:
             aws configure list
 
       
-      # Install Docker and Docker Compose
-      - run:
-          name: Install Docker and Docker Compose
-          command: |
-            sudo apt-get update
-            sudo apt-get -y install docker.io docker-compose
+      # # Install Docker and Docker Compose
+      # - run:
+      #     name: Install Docker and Docker Compose
+      #     command: |
+      #       sudo apt-get update
+      #       sudo apt-get -y install docker.io docker-compose
       
 
       # Build Docker image using Dockerfile from project directory
