@@ -110,7 +110,7 @@ jobs:
           command: |
              echo "$LETTINGS_APP_EC2_KEY" > id_rsa
              chmod 600 id_rsa
-             ssh -i id_rsa ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
+            #  ssh -i id_rsa ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
              
 
       # Build Docker image using Dockerfile from project directory
