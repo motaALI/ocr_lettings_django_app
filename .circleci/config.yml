@@ -104,6 +104,26 @@ jobs:
           command: |
             aws configure list
 
+      
+      # Install Docker and Docker Compose
+      - run:
+          name: Install Docker and Docker Compose
+          command: |
+            sudo apt-get update
+            sudo apt-get -y install docker.io docker-compose
+      
+      # Copy Docker Compose file to EC2 instance
+      - run:
+          name: Copy Docker Compose file
+          command: cp docker-compose.yml /home/ubuntu/lettings_app/docker-compose.yml
+
+
+      # Deploy using Docker Compose
+      - run:
+          name: Deploy using Docker Compose
+          command: cd /home/ubuntu/lettings_app && docker-compose up -d
+
+
       # Configure server
       - run:
           name: Configure server
