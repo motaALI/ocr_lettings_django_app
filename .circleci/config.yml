@@ -108,8 +108,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-             ssh $lettings_app_ec2_key ubuntu@EC2_PUBLIC_IP 'sudo apt-get update && sudo apt-get -y install nginx'
-             ssh $lettings_app_ec2_key ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
+             echo "$LETTINGS_APP_EC2_KEY" > id_rsa
+             chmod 600 id_rsa
+             ssh -i id_rsa ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
              
 
       # Build Docker image using Dockerfile from project directory
