@@ -104,14 +104,20 @@ jobs:
           command: |
             aws configure list
 
-      # Configure server (example)
+      # Configure server
       - run:
           name: Configure server
           command: |
              echo "$LETTINGS_APP_EC2_KEY" > id_rsa
              chmod 600 id_rsa
+             scp -i id_rsa docker-compose.yml ubuntu@EC2_PUBLIC_IP:/home/ubuntu/lettings_app/docker-compose.yml
             #  ssh -i id_rsa ubuntu@ec2-16-171-175-12.eu-north-1.compute.amazonaws.com
-             
+
+      # Deploy using Docker Compose 
+      - run:
+          name: Deploy using Docker Compose
+          command: |
+            ssh -i id_rsa ubuntu@EC2_PUBLIC_IP 'cd /home/ubuntu/lettings_app && docker-compose up -d'
 
       # Build Docker image using Dockerfile from project directory
       - run:
