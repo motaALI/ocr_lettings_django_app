@@ -39,6 +39,7 @@ jobs:
           name: Run pytest
           command: |
             source venv/bin/activate &&
+            pip install --upgrade pip &&
             pytest
 
   deploy:
