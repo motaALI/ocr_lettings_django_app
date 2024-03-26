@@ -7,13 +7,29 @@ jobs:
     steps:
       - checkout
 
-      # Install system dependencies
+      # Update apt-get and install Docker
       - run:
-          name: Install system dependencies
+          name: Install Docker dependencies
           command: |
             sudo apt-get update
-            sudo apt-get -y install python3-venv docker-compose
-            sudo apt-get -y install docker.io containerd
+            sudo apt-get install -y containerd
+
+      - run:
+          name: Install Docker.io
+          command: |
+            sudo apt-get install -y docker.io
+
+      - run:
+          name: Start Docker service
+          command: |
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+      # Verify Docker installation
+      - run:
+          name: Verify Docker installation
+          command: |
+            docker --version
 
       # Fix broken packages
       - run:
@@ -112,7 +128,7 @@ jobs:
             sudo apt-get install -y docker.io
             sudo systemctl start docker
             sudo systemctl enable docker
-            
+
       - run:
           name: Debug Environment Variables
           command: |
