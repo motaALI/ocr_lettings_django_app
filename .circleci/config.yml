@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Run pytest
           command: |
-            . venv/bin/activate
+            source venv/bin/activate &&
             pytest
 
   deploy:
