@@ -11,8 +11,8 @@ jobs:
       - run:
           name: Start Docker daemon
           command: |
-            sudo service docker start
-            
+            sudo systemctl start docker
+
       # Install system dependencies
       - run:
           name: Install system dependencies
