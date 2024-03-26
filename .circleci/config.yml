@@ -104,6 +104,13 @@ jobs:
           command: |
             aws configure list
 
+      - run:
+          name: Debug Environment Variables
+          command: |
+            echo "DOCKERHUB_USERNAME: $DOCKERHUB_USERNAME"
+            echo "CIRCLE_PROJECT_REPONAME: $CIRCLE_PROJECT_REPONAME"
+            echo "CIRCLE_SHA1: $CIRCLE_SHA1"
+
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
