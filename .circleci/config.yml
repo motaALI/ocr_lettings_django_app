@@ -7,12 +7,6 @@ jobs:
     steps:
       - checkout
 
-      # Add these lines to start Docker daemon
-      - run:
-          name: Start Docker daemon
-          command: |
-            sudo systemctl start docker
-
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -38,6 +32,12 @@ jobs:
           name: Install docker.io again
           command: |
             sudo apt-get install docker.io
+
+      # Add these lines to start Docker daemon
+      - run:
+          name: Start Docker daemon
+          command: |
+            sudo systemctl start docker
 
       # Start Docker service with elevated privileges
       - run:
