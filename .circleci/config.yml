@@ -49,7 +49,6 @@ jobs:
       - run:
           name: Install AWS CLI and configure AWS credentials
           command: |
-            sudo apt-get update && sudo apt-get install -y awscli
             aws configure set aws_access_key_id $AMAZON_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AMAZON_SECRET_ACCESS_KEY
             aws configure set region $AMAZON_REGION
