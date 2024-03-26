@@ -8,6 +8,14 @@ jobs:
     steps:
       - checkout
 
+      # Install Python dependencies
+      - run:
+          name: Install Python dependencies
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
       # Install system dependencies
       - run:
           name: Install system dependencies
@@ -19,18 +27,6 @@ jobs:
       - run:
           name: Verify Docker installation
           command: docker --version
-
-      # Restore Python dependencies cache
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-
-      # Install Python dependencies
-      - run:
-          name: Install Python dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
 
       # Save Python dependencies cache
       - save_cache:
