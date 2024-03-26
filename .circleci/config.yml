@@ -2,7 +2,8 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/python:3.8
+      - image: cimg/python:3.6
+    working_directory: /home/circleci/project
     steps:
       - checkout
 
@@ -11,7 +12,6 @@ jobs:
           name: Install system dependencies
           command: |
             sudo apt-get update
-            sudo apt-get -y install python3-venv python3-pip docker-compose
             sudo apt-get -y install python3-venv docker-compose
             sudo apt-get -y install docker.io containerd
 
@@ -32,12 +32,6 @@ jobs:
           name: Install docker.io again
           command: |
             sudo apt-get install docker.io
-      
-      # Verify docker installation
-      - run:
-          name: Verify docker installation
-          command: |
-            docker --version
 
       # Start Docker service with elevated privileges
       - run:
@@ -85,7 +79,7 @@ jobs:
   deploy:
     docker:
       - image: cimg/python:3.6
-      
+    working_directory: /home/circleci/project
     steps:
       - checkout
 
@@ -109,7 +103,7 @@ jobs:
           name: Verify AWS configuration
           command: |
             aws configure list
-            
+
       - run:
           name: Debug Environment Variables
           command: |
@@ -120,7 +114,7 @@ jobs:
       # Authenticate with Docker Hub using access token
       - run:
           name: Authenticate with Docker Hub
-          command: echo "$DOCKER_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+          command: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
       # Build Docker image using Dockerfile from project directory
       - run:
