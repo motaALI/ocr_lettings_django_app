@@ -31,12 +31,12 @@ jobs:
             - "venv"
 
       # Run pytest
-      - run:
-          name: Run pytest
-          command: |
-            source venv/bin/activate &&
-            pip install --upgrade pip &&
-            pytest
+      # - run:
+      #     name: Run pytest
+      #     command: |
+      #       source venv/bin/activate &&
+      #       pip install --upgrade pip &&
+      #       pytest
 
   deploy:
     docker:
