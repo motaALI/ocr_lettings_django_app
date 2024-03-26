@@ -3,22 +3,10 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/python:3.8
+      - image: circleci/python:3.8
     working_directory: /home/circleci/project
     steps:
       - checkout
-
-      # Install system dependencies
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo yum update -y && \
-            sudo yum install -y python3 python3-venv docker-compose docker containerd
-
-      # Verify Docker installation
-      - run:
-          name: Verify Docker installation
-          command: docker --version
 
       # Restore Python dependencies cache
       - restore_cache:
@@ -48,15 +36,10 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/python:3.6
+      - image: circleci/python:3.6
     working_directory: /home/circleci/project
     steps:
       - checkout
-
-      # Install AWS CLI
-      - run:
-          name: Install AWS CLI
-          command: sudo yum install -y aws-cli
 
       # Set AWS credentials
       - run:
@@ -83,13 +66,6 @@ jobs:
           name: Authenticate with Docker Hub
           command: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
-      # Install Docker
-      - run:
-          name: Install Docker
-          command: |
-            sudo yum install -y amazon-linux-extras
-            sudo amazon-linux-extras install docker
-
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
@@ -106,8 +82,6 @@ jobs:
           name: Deploy using Docker Compose
           command: |
             ssh -i ~/.ssh/${LETTINGS_AMAZON_LINUX_KEY} ec2-user@EC2_PUBLIC_IP 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
-          environment:
-            LETTINGS_AMAZON_LINUX_KEY: $LETTINGS_AMAZON_LINUX_KEY
 
 workflows:
   build_and_deploy_workflow:
