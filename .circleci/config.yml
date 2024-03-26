@@ -116,6 +116,14 @@ jobs:
           name: Authenticate with Docker Hub
           command: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
+      # Update apt-get and install Docker (if not already installed)
+      - run:
+          name: Install Docker
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
