@@ -12,15 +12,15 @@ jobs:
       - run:
           name: Install system dependencies
           command: |
-            sudo apt-get update && \
-            sudo apt-get -y install python3-venv docker-compose docker.io containerd
+            sudo yum update -y && \
+            sudo yum install -y python3 python3-venv docker-compose docker containerd
 
       # Verify Docker installation
       - run:
           name: Verify Docker installation
           command: docker --version
 
-        # Restore Python dependencies cache
+      # Restore Python dependencies cache
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
 
@@ -56,7 +56,7 @@ jobs:
       # Install AWS CLI
       - run:
           name: Install AWS CLI
-          command: sudo apt-get -y install awscli
+          command: sudo yum install -y aws-cli
 
       # Set AWS credentials
       - run:
@@ -87,17 +87,8 @@ jobs:
       - run:
           name: Install Docker
           command: |
-            sudo apt-get update && \
-            sudo apt-get install -y \
-            apt-transport-https \
-            ca-certificates \
-            curl \
-            gnupg-agent \
-            software-properties-common && \
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-            sudo apt-get update && \
-            sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+            sudo yum install -y amazon-linux-extras
+            sudo amazon-linux-extras install docker
 
       # Build Docker image using Dockerfile from project directory
       - run:
@@ -114,7 +105,9 @@ jobs:
       - run:
           name: Deploy using Docker Compose
           command: |
-            ssh -i ~/.ssh/${lettings_app_ec2_key} ubuntu@EC2_PUBLIC_IP 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ubuntu/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+            ssh -i ~/.ssh/${LETTINGS_AMAZON_LINUX_KEY} ec2-user@EC2_PUBLIC_IP 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+          environment:
+            LETTINGS_AMAZON_LINUX_KEY: $LETTINGS_AMAZON_LINUX_KEY
 
 workflows:
   build_and_deploy_workflow:
