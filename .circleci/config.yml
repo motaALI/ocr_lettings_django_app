@@ -114,7 +114,7 @@ jobs:
       # Authenticate with Docker Hub using access token
       - run:
           name: Authenticate with Docker Hub
-          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          command: echo "$DOCKER_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
 
       # Build Docker image using Dockerfile from project directory
       - run:
