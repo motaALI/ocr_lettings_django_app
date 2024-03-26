@@ -115,7 +115,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker docker build --tag ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
+            docker build --tag ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
 
       # Authenticate with Docker Hub using access token
       - run:
