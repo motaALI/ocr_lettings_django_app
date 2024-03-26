@@ -8,12 +8,7 @@ jobs:
     working_directory: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
-      # Install system dependencies
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update && \
-            sudo apt-get -y install python3-venv docker-compose docker.io containerd
+     
 
       # Restore Python dependencies cache
       - restore_cache:
