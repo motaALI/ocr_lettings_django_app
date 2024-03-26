@@ -113,14 +113,19 @@ jobs:
 
       # Build Docker image using Dockerfile from project directory
       - run:
-          name: Build and push Docker image to Docker Hub
+          name: Build Docker image
           command: |
-            echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> ${BASH_ENV}
-            echo 'export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME}' >> ${BASH_ENV}
-            source ${BASH_ENV}
-            docker build tag ${DOCKER_LOGIN}/${IMAGE_NAME} tag ${DOCKER_LOGIN}/${IMAGE_NAME}:${TAG} .
-            echo ${DOCKER_PWD} | docker login -u ${DOCKER_LOGIN} --password-stdin
-            docker push ${DOCKER_LOGIN}/${IMAGE_NAME}
+            docker build tag ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
+
+      # Authenticate with Docker Hub using access token
+      - run:
+          name: Authenticate with Docker Hub
+          command: echo "$DOCKERHUB_ACCESS_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+
+      # Push Docker image to DockerHub
+      - run:
+          name: Push Docker image to DockerHub
+          command: docker push $DOCKERHUB_USERNAME/${CIRCLE_PROJECT_REPONAME}
 
       # SSH into EC2 instance, pull the latest Docker image, and run Docker Compose
       - run:
