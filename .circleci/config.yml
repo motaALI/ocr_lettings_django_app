@@ -34,12 +34,6 @@ jobs:
           command: |
             sudo apt-get install docker.io
 
-      # Add these lines to start Docker daemon
-      - run:
-          name: Start Docker daemon
-          command: |
-            sudo systemctl start docker
-
       # Start Docker service with elevated privileges
       - run:
           name: Start Docker service
