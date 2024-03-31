@@ -42,6 +42,7 @@ jobs:
   deploy:
     docker:
       - image: cimg/python:3.6
+      
     working_directory: /home/circleci/project
     steps:
       - checkout
@@ -95,15 +96,15 @@ jobs:
           name: Authenticate with Docker Hub
           command: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
-      # Check Docker service status
-      - run:
-          name: Check Docker service status
-          command: sudo systemctl status docker
+      # # Check Docker service status
+      # - run:
+      #     name: Check Docker service status
+      #     command: sudo systemctl status docker
 
-      # Start Docker service if not running
-      - run:
-          name: Start Docker service
-          command: sudo systemctl start docker
+      # # Start Docker service if not running
+      # - run:
+      #     name: Start Docker service
+      #     command: sudo systemctl start docker
 
       # Build Docker image using Dockerfile from project directory
       - run:
