@@ -1,22 +1,21 @@
 version: 2.1
+
 orbs:
-  docker: circleci/docker@x.y.z
+  docker: circleci/docker@2.6.0
+  
 jobs:
   build:
     docker:
       - image: cimg/python:3.6
-      
     working_directory: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
-     
-
+      - setup_remote_docker
       # Restore Python dependencies cache
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      
       # Install Python dependencies
       - run:
           name: Install Python dependencies
@@ -25,13 +24,11 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
-
       # Save Python dependencies cache
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-
       # Run pytest
       - run:
           name: Run pytest
@@ -43,16 +40,15 @@ jobs:
   deploy:
     docker:
       - image: cimg/python:3.6
-      
     working_directory: /home/circleci/project
     steps:
       - checkout
+      - setup_remote_docker
       # Install AWS CLI
       - run:
           name: Install AWS CLI
           command: |
             sudo apt-get update && sudo apt-get install -y awscli
-
       # Debug environment variables
       - run:
           name: Debug Environment Variables
@@ -60,7 +56,6 @@ jobs:
             echo "AMAZON_ACCESS_KEY_ID: ${AMAZON_ACCESS_KEY_ID}"
             echo "AMAZON_SECRET_ACCESS_KEY: ${AMAZON_SECRET_ACCESS_KEY}"
             echo "AMAZON_REGION: ${AMAZON_REGION}"
-
       # Install AWS CLI and configure AWS credentials
       - run:
           name: Install AWS CLI and configure AWS credentials
@@ -68,57 +63,27 @@ jobs:
             aws configure set aws_access_key_id "${AMAZON_ACCESS_KEY_ID}"
             aws configure set aws_secret_access_key "${AMAZON_SECRET_ACCESS_KEY}"
             aws configure set region "${AMAZON_REGION}"
-
-
       # Verify AWS configuration
       - run:
           name: Verify AWS configuration
           command: aws configure list
-
+      # Debug Environment Variables
       - run:
           name: Debug Environment Variables
           command: |
             echo "DOCKERHUB_USERNAME: ${DOCKERHUB_USERNAME}"
             echo "CIRCLE_PROJECT_REPONAME: ${CIRCLE_PROJECT_REPONAME}"
             echo "CIRCLE_SHA1: ${CIRCLE_SHA1}"
-
-      - run:
-          name: Install Docker in Docker dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-            sudo apt-get update
-            sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-
-      # Authenticate with Docker Hub using access token
-      - run:
-          name: Authenticate with Docker Hub
-          command: echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
-
-      # # Check Docker service status
-      # - run:
-      #     name: Check Docker service status
-      #     command: sudo systemctl status docker
-
-      # # Start Docker service if not running
-      # - run:
-      #     name: Start Docker service
-      #     command: sudo systemctl start docker
-
       # Build Docker image using Dockerfile from project directory
       - run:
           name: Build Docker image
           command: |
             docker build --tag ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
             when: always
-
       # Push Docker image to DockerHub
       - run:
           name: Push Docker image to DockerHub
           command: docker push ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
-
       # SSH into EC2 instance, pull the latest Docker image, and run Docker Compose
       - run:
           name: Deploy using Docker Compose
