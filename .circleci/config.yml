@@ -80,10 +80,6 @@ jobs:
             echo "CIRCLE_PROJECT_REPONAME: ${CIRCLE_PROJECT_REPONAME}"
             echo "CIRCLE_SHA1: ${CIRCLE_SHA1}"
 
-      # Run Docker service restart
-      - run:
-          name: Restart Docker service
-          command: sudo service docker restart
 
       # Authenticate with Docker Hub using access token
       - run:
