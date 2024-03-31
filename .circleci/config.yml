@@ -45,7 +45,12 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
-
+      # Install AWS CLI
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update && sudo apt-get install -y awscli
+            
       # Install AWS CLI and configure AWS credentials
       - run:
           name: Install AWS CLI and configure AWS credentials
@@ -53,6 +58,11 @@ jobs:
             aws configure set aws_access_key_id $AMAZON_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AMAZON_SECRET_ACCESS_KEY
             aws configure set region $AMAZON_REGION
+
+
+            # Debug environment variables
+            echo "AMAZON_ACCESS_KEY_ID: ${AMAZON_ACCESS_KEY_ID}"
+            echo "AMAZON_REGION: ${AMAZON_REGION}"
 
       # Debug environment variables
       - run:
