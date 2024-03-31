@@ -96,7 +96,7 @@ jobs:
       - run:
           name: Deploy using Docker Compose
           command: |
-            ssh -i ~/.ssh/${LETTINGS_AMAZON_LINUX_KEY} ec2-user@${EC2_AMZON_PUBLIC_IP} 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+            ssh -i ${LETTINGS_AMAZON_LINUX_KEY} ec2-user@${EC2_AMZON_PUBLIC_IP} 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
 
 
 workflows:
