@@ -119,13 +119,16 @@ jobs:
       - run:
           name: Copy docker-compose.yml to EC2 instance
           command: scp -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" docker-compose.yml ec2-user@"$EC2_AMZON_PUBLIC_IP":/home/ec2-user/${CIRCLE_PROJECT_REPONAME}/
-      # SSH into EC2 instance and start Docker Compose
+      
+      # SSH into EC2 instance and build and run Docker image
       - run:
-          name: Start Docker Compose
+          name: Build and run Docker image on EC2 instance
           command: |
             ssh -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" ec2-user@"$EC2_AMZON_PUBLIC_IP" "\
               cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && \
-              docker-compose up -d"
+              docker build -t ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} . && \
+              docker run -d -p 8000:8000 ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+              
 workflows:
   build_and_deploy_workflow:
     jobs:
