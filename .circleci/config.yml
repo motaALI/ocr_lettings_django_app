@@ -114,7 +114,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            docker pull "${DOCKERHUB_USERNAME}"/"${CIRCLE_PROJECT_REPONAME}":"${CIRCLE_SHA1}" && cd /home/ec2-user/"${CIRCLE_PROJECT_REPONAME}" && docker-compose up -d'
+            docker pull "${DOCKERHUB_USERNAME}"/"${CIRCLE_PROJECT_REPONAME}":"${CIRCLE_SHA1}" && cd /home/ec2-user/"${CIRCLE_PROJECT_REPONAME}" && docker-compose up -d
 workflows:
   build_and_deploy_workflow:
     jobs:
