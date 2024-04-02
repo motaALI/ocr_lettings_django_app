@@ -96,7 +96,10 @@ jobs:
       - run:
           name: Deploy using Docker Compose
           command: |
-            ssh ${LETTINGS_AMAZON_LINUX_KEY} ec2-user@${EC2_AMZON_PUBLIC_IP} 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+            echo "$LETTINGS_AMAZON_LINUX_KEY" > temp_key.pem
+            chmod 600 temp_key.pem
+            ssh -i temp_key.pem ec2-user@${EC2_AMZON_PUBLIC_IP} 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+            rm temp_key.pem
 
 workflows:
   build_and_deploy_workflow:
