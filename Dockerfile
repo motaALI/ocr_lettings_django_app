@@ -1,5 +1,4 @@
-# Use a Debian-based Python 3.7 runtime as a parent image
-FROM python:3.7
+FROM python:3.8
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
