@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create symlink for libcrypt.so.1
-RUN ln -s /lib/x86_64-linux-gnu/libcrypt.so.1 /usr/lib/x86_64-linux-gnu/libcrypt.so.1
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
