@@ -109,13 +109,11 @@ jobs:
 
       # SSH into EC2 instance, pull the latest Docker image, and run Docker Compose
       - run:
-          name: SSH and Pull Docker Image & Run Docker-Compose
+          name: Deploy using Docker Compose
           command: |
-            ssh -i ./ssh_key ec2-user@$EC2_AMZON_PUBLIC_IP <<EOF
-              docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
-              cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME}
-              docker-compose up -d
-            EOF
+            echo "$LETTINGS_AMAZON_LINUX_KEY" > ./ssh_key
+            chmod 600  ./ssh_key
+            ssh -i ./ssh_key ec2-user@$EC2_AMZON_PUBLIC_IP 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d' && rm ./ssh_key
 
 workflows:
   build_and_deploy_workflow:
