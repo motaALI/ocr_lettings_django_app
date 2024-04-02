@@ -1,5 +1,5 @@
 # Use a slim Python 3.7 runtime as a parent image
-FROM python:3.7-slim
+FROM python:3.9.0b1-alpine3.11
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
