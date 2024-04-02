@@ -109,14 +109,22 @@ jobs:
             echo "$LETTINGS_AMAZON_LINUX_KEY_2" > "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key
             chmod 600 "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key
       
+      # Install Docker Compose
       - run:
-          name: Deploy to EC2
+          name: Install Docker Compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+      # Copy docker-compose.yml to EC2 instance
+      - run:
+          name: Copy docker-compose.yml to EC2 instance
+          command: scp -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" docker-compose.yml ec2-user@"$EC2_AMZON_PUBLIC_IP":/home/ec2-user/${CIRCLE_PROJECT_REPONAME}/
+      # SSH into EC2 instance and start Docker Compose
+      - run:
+          name: Start Docker Compose
           command: |
             ssh -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" ec2-user@"$EC2_AMZON_PUBLIC_IP" "\
-              cd /home/ec2-user/ && \
-              mkdir -p ${CIRCLE_PROJECT_REPONAME} && \
-              cd ${CIRCLE_PROJECT_REPONAME} && \
-              docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && \
+              cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && \
               docker-compose up -d"
 workflows:
   build_and_deploy_workflow:
