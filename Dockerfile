@@ -10,6 +10,7 @@ WORKDIR /app
 
 # Install additional system dependencies
 RUN apt-get update && apt-get install -y \
+    libc6 \
     libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
