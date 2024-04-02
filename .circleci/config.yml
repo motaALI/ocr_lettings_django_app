@@ -120,6 +120,26 @@ jobs:
           name: Copy docker-compose.yml to EC2 instance
           command: scp -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" docker-compose.yml ec2-user@"$EC2_AMZON_PUBLIC_IP":/home/ec2-user/${CIRCLE_PROJECT_REPONAME}/
       
+      # Configure Nginx as reverse proxy
+      - run:
+          name: Configure Nginx
+          command: |
+            sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} <<EOF
+            server {
+                listen 80;
+                server_name your-domain.com;
+
+                location / {
+                    proxy_pass http://localhost:8000;
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                }
+            }
+            EOF
+            sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled/
+
       # SSH into EC2 instance and build and run Docker image
       - run:
           name: Build and run Docker image on EC2 instance
