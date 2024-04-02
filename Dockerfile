@@ -3,7 +3,7 @@ FROM python:3.8-slim-buster
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
-ENV PROJECT_DIR="lettings-site"
+ENV PROJECT_DIR="ocr_lettings_django_app"
 RUN mkdir $PROJECT_DIR
 COPY . $PROJECT_DIR
 WORKDIR $PROJECT_DIR
