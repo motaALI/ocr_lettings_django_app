@@ -10,9 +10,11 @@ WORKDIR /app
 
 # Install additional system dependencies
 RUN apt-get update && apt-get install -y \
-    libc6 \
     libffi-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy the required shared library into the Docker image
+COPY /usr/lib/x86_64-linux-gnu/libcrypt.so.1 /usr/lib/x86_64-linux-gnu/libcrypt.so.1
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
