@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app/Dockerfile
     command: gunicorn oc_lettings_site.wsgi --bind 0.0.0.0:8000
     environment:
       - DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
