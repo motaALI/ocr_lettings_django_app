@@ -1,5 +1,5 @@
-# Use a slim Python 3.7 runtime as a parent image
-FROM python:3.9.0b1-alpine3.11
+# Use a Debian-based Python 3.7 runtime as a parent image
+FROM python:3.7
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -7,13 +7,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 # Set the working directory in the container
 WORKDIR /app
-
-# Install libc6 package which includes libcrypt.so.1
-RUN apt-get update && apt-get install -y \
-    libc6 \
-    libffi-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
@@ -37,9 +30,6 @@ ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
 
 # Update STATIC_ROOT path
 ENV STATIC_ROOT=/app/staticfiles/
-
-# Set correct permissions for static files
-# RUN chmod -R 755 /app/staticfiles/
 
 # Run the application using Gunicorn
 CMD ["gunicorn", "oc_lettings_site.wsgi", "--bind", "0.0.0.0:8000"]
