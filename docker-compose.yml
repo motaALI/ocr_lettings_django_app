@@ -2,12 +2,16 @@ version: '3'
 
 services:
   web:
-    image: python:3.9-slim
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: gunicorn oc_lettings_site.wsgi --bind 0.0.0.0:8000
     environment:
       - DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     volumes:
       - .:/app
+    ports:
+      - "8000:8000"
     restart: always
