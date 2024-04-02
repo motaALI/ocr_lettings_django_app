@@ -8,13 +8,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Set the working directory in the container
 WORKDIR /app
 
-
-# Upgrade pip and install dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    gcc \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libffi-dev \
+    libcrypt1 \
     && rm -rf /var/lib/apt/lists/*
-
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
