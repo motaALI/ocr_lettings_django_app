@@ -110,7 +110,7 @@ jobs:
       - run:
           name: Deploy to EC2
           command: |
-            ssh -o StrictHostKeyChecking=no -i "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key ec2-user@"$EC2_AMZON_PUBLIC_IP" 'docker pull "${DOCKERHUB_USERNAME}"/"${CIRCLE_PROJECT_REPONAME}":"${CIRCLE_SHA1}" && cd /home/ec2-user/"${CIRCLE_PROJECT_REPONAME}" && docker-compose up -d'
+            ssh -o StrictHostKeyChecking=no -i "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key  ec2-user@"$EC2_AMZON_PUBLIC_IP" 'docker pull "${DOCKERHUB_USERNAME}"/"${CIRCLE_PROJECT_REPONAME}":"${CIRCLE_SHA1}" && cd /home/ec2-user/"${CIRCLE_PROJECT_REPONAME}" && docker-compose up -d'
 workflows:
   build_and_deploy_workflow:
     jobs:
