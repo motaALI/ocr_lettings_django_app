@@ -1,5 +1,5 @@
-# Use a slim Python runtime as a parent image
-FROM python:3.9-slim
+# Use a slim Python 3.7 runtime as a parent image
+FROM python:3.7-slim
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -8,10 +8,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
+# Install additional system dependencies
 RUN apt-get update && apt-get install -y \
     libffi-dev \
-    libcrypt1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only the requirements file into the container at /app
