@@ -8,13 +8,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Set the working directory in the container
 WORKDIR /app
 
-# Install additional system dependencies
+# Install libc6 package which includes libcrypt.so.1
 RUN apt-get update && apt-get install -y \
+    libc6 \
     libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Add the required shared library into the Docker image
-ADD /usr/lib/x86_64-linux-gnu/libcrypt.so.1 /usr/lib/x86_64-linux-gnu/libcrypt.so.1
+# Create symlink for libcrypt.so.1
+RUN ln -s /lib/x86_64-linux-gnu/libcrypt.so.1 /usr/lib/x86_64-linux-gnu/libcrypt.so.1
 
 # Copy only the requirements file into the container at /app
 COPY requirements.txt .
