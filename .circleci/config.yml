@@ -100,6 +100,10 @@ jobs:
           name: Push Docker image to DockerHub
           command: docker push ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
+      - add_ssh_keys:
+          fingerprints:
+            - "MD5:25:17:88:53:4c:ee:31:07:71:22:7d:33:0d:40:b1:31"
+            - "SHA256:DYnPOIhQKpNgbCjWumuMyc6EhL0XEg+tFk424UFHzjg"
       - run:
           name: Create SSH key directory and file
           command: |
