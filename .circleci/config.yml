@@ -101,8 +101,9 @@ jobs:
           command: docker push ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
       - run:
-          name: Write SSH key to file
+          name: Create SSH key directory and file
           command: |
+            mkdir -p "$HOME"/"${CIRCLE_PROJECT_REPONAME}"
             echo "$LETTINGS_AMAZON_LINUX_KEY_2" > "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key
             chmod 600 "$HOME"/"${CIRCLE_PROJECT_REPONAME}"/ssh_key
 
