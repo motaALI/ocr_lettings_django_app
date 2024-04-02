@@ -49,6 +49,14 @@ jobs:
           name: Install AWS CLI
           command: |
             sudo apt-get update && sudo apt-get install -y awscli
+
+      # Install openssh-client
+      - run:
+          name: Install SSH Dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y openssh-client
+
       # Debug environment variables
       - run:
           name: Debug Environment Variables
@@ -96,10 +104,11 @@ jobs:
       - run:
           name: Deploy using Docker Compose
           command: |
-            echo "$LETTINGS_AMAZON_LINUX_KEY" > temp_key.pem
-            chmod 600 temp_key.pem
-            ssh -o StrictHostKeyChecking=no -i temp_key.pem ec2-user@${EC2_AMZON_PUBLIC_IP} 'docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
-            rm temp_key.pem
+            echo "$LETTINGS_AMAZON_LINUX_KEY" >  ./ssh_key
+            chmod 600  ./ssh_key
+            ssh ./ssh_key ec2-user@${EC2_AMZON_PUBLIC_IP} << 'EOF'
+            docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && docker-compose up -d'
+            EOF
 
 workflows:
   build_and_deploy_workflow:
