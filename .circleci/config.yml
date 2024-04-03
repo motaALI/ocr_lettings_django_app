@@ -124,8 +124,7 @@ jobs:
       - run:
           name: Configure Nginx
           command: |
-            sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} <<EOF
-            server {
+            echo 'server {
                 listen 80;
                 server_name ${EC2_AMZON_PUBLIC_IP};
 
@@ -135,10 +134,10 @@ jobs:
                     proxy_set_header X-Real-IP $remote_addr;
                     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                     proxy_set_header X-Forwarded-Proto $scheme;
-                    }
                 }
-            EOF
+            }' | sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME}
             sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled/
+
 
       # Restart Nginx
       - run:
