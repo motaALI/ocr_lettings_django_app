@@ -1,23 +1,12 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8
+FROM python:3.8-slim-buster
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Set the working directory
-WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Install gunicorn
-RUN pip install gunicorn
-
-# Copy the project code into the container
-COPY . /app/
-
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+ENV PROJECT_DIR="oc_lettings_site"
+RUN mkdir $PROJECT_DIR
+COPY . $PROJECT_DIR
+WORKDIR $PROJECT_DIR
+RUN pip install -r requirements.txt
 EXPOSE 8000
-# Run the application using Gunicorn
 ENTRYPOINT ["python", "manage.py"]
