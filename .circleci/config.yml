@@ -138,12 +138,7 @@ jobs:
                 }
             }' | sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME}
             sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled
-
-
-      # Restart Nginx
-      - run:
-          name: Restart Nginx
-          command: sudo systemctl restart nginx
+            sudo service nginx restart
 
 
       # SSH into EC2 instance and build and run Docker image
