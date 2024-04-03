@@ -46,6 +46,11 @@ jobs:
           command: |
             docker push ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
       - run:
+          name: Install Heroku CLI
+          command: |
+            curl https://cli-assets.heroku.com/install.sh | sh
+            
+      - run:
           name: Deploy to Heroku
           command: |
             heroku container:login
