@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@2.0.0
+
 jobs:
   build:
     docker:
@@ -23,6 +24,7 @@ jobs:
           name: Run pytest
           command: |
             source venv/bin/activate && pytest
+
   containerise:
     machine:
       enabled: true
@@ -38,21 +40,19 @@ jobs:
           command: |
             docker build --tag ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} .
       - run:
-          name: Authenticate with Docker Hub
-          command: |
-            echo "$DOCKER_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
-      - run:
           name: Push Docker image to Docker Hub
           command: |
             docker push ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
+
   deploy-prod:
     executor: heroku/default
     steps:
       - checkout
       - heroku/deploy-via-git
+
 workflows:
   build_and_deploy_workflow:
-     jobs:
+    jobs:
       - build
       - containerise:
           requires:
