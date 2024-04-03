@@ -125,9 +125,9 @@ jobs:
           name: Configure Nginx
           command: |
             sudo mkdir -p /etc/nginx/sites-available/
-            echo 'server {
+              echo 'server {
                 listen 80;
-                server_name ${EC2_AMZON_PUBLIC_IP};
+                server_name '${EC2_AMZON_PUBLIC_IP}';
 
                 location / {
                     proxy_pass http://localhost:8000;
@@ -137,7 +137,7 @@ jobs:
                     proxy_set_header X-Forwarded-Proto $scheme;
                 }
             }' | sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME}
-            sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled/
+            sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled
 
 
       # Restart Nginx
