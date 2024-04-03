@@ -5,7 +5,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/python:3.6
+      - image: python:3.8-slim-buster
     working_directory: $CIRCLE_WORKING_DIRECTORY
     steps:
       - checkout
@@ -28,7 +28,6 @@ jobs:
   containerise:
     machine:
       enabled: true
-    working_directory: /home/circleci/project
     steps:
       - checkout
       - run:
