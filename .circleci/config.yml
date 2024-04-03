@@ -135,10 +135,16 @@ jobs:
                     proxy_set_header X-Real-IP $remote_addr;
                     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                     proxy_set_header X-Forwarded-Proto $scheme;
+                    }
                 }
-            }
             EOF
             sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled/
+
+      # Restart Nginx
+      - run:
+          name: Restart Nginx
+          command: sudo systemctl restart nginx
+
 
       # SSH into EC2 instance and build and run Docker image
       - run:
