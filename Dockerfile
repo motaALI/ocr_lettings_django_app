@@ -18,5 +18,6 @@ RUN pip install gunicorn
 # Copy the project code into the container
 COPY . /app/
 
+EXPOSE 8000
 # Run the application using Gunicorn
-CMD ["gunicorn", "oc_lettings_site.wsgi", "--bind", "0.0.0.0:8080"]
+ENTRYPOINT ["python", "manage.py"]
