@@ -127,7 +127,7 @@ jobs:
             sudo mkdir -p /etc/nginx/sites-available/
               echo 'server {
                 listen 8080;
-                server_name '${EC2_AMZON_PUBLIC_IP}';
+                server_name '${EC2_AMZON_PUBLIC_DNS}';
 
                 location / {
                     proxy_pass http://localhost:8080;
