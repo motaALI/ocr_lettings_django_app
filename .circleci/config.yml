@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  heroku: circleci/heroku@1.0.1
 jobs:
   build:
     docker:
@@ -21,7 +22,7 @@ jobs:
       - run:
           name: Run pytest
           command: |
-            pytest
+            source venv/bin/activate && pytest
   deploy:
     machine:
       enabled: true
