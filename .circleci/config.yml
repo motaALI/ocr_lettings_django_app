@@ -138,6 +138,12 @@ jobs:
                 }
             }' | sudo tee /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME}
             sudo ln -s /etc/nginx/sites-available/${CIRCLE_PROJECT_REPONAME} /etc/nginx/sites-enabled
+            
+            # Install Nginx if not installed
+            sudo apt-get update
+            sudo apt-get install -y nginx
+
+            # Restart Nginx
             sudo service nginx restart
 
 
