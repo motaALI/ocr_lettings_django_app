@@ -19,4 +19,4 @@ RUN pip install gunicorn
 COPY . /app/
 
 # Run the application using Gunicorn
-CMD ["gunicorn", "oc_lettings_site.wsgi", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "oc_lettings_site.wsgi", "--bind", "0.0.0.0:8080"]

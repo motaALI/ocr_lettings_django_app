@@ -5,13 +5,13 @@ services:
     build:
       context: .
       dockerfile: app/Dockerfile
-    command: gunicorn oc_lettings_site.wsgi --bind 0.0.0.0:8000
+    command: gunicorn oc_lettings_site.wsgi --bind 0.0.0.0:8080
     environment:
       - DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
     expose:
-      - "8000"
+      - "8080"
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8080:8080"
     restart: always

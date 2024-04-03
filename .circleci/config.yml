@@ -126,11 +126,11 @@ jobs:
           command: |
             sudo mkdir -p /etc/nginx/sites-available/
               echo 'server {
-                listen 80;
+                listen 8080;
                 server_name '${EC2_AMZON_PUBLIC_IP}';
 
                 location / {
-                    proxy_pass http://localhost:8000;
+                    proxy_pass http://localhost:8080;
                     proxy_set_header Host $host;
                     proxy_set_header X-Real-IP $remote_addr;
                     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -154,7 +154,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i "$HOME/${CIRCLE_PROJECT_REPONAME}/ssh_key" ec2-user@"$EC2_AMZON_PUBLIC_IP" "\
               cd /home/ec2-user/${CIRCLE_PROJECT_REPONAME} && \
               docker pull ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} && \
-              docker run -d -p 80:8000 ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
+              docker run -d -p 8080:8080 ${DOCKERHUB_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}"
 
 
 
