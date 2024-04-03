@@ -124,6 +124,7 @@ jobs:
       - run:
           name: Configure Nginx
           command: |
+            sudo mkdir -p /etc/nginx/sites-available/
             echo 'server {
                 listen 80;
                 server_name ${EC2_AMZON_PUBLIC_IP};
