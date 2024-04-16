@@ -2,10 +2,12 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500
 from oc_lettings_site import views
 from django.conf import settings
 from user_profile.views import profiles_index, profile
 from letting.views import lettings_index, letting
+
 
 
 """
@@ -20,6 +22,10 @@ URL patterns for the application.
 
 Each path is associated with a specific view and has a corresponding name for reverse URL matching.
 """
+
+handler404 = 'oc_lettings_site.views.custom_404'
+handler500 = 'oc_lettings_site.views.custom_500'
+
 
 urlpatterns = [
     path('', views.index, name='index'),
