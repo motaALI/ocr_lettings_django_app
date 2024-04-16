@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Run pytest
           command: |
-            source venv/bin/activate && pytest --settings=test_settings
+            source venv/bin/activate && pytest
 
   containerise:
     machine:
