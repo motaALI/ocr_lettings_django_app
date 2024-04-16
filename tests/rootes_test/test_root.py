@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import pytest
 
-from letting.models import Address, Letting
+from letting.models import Addres, Letting
 from tests.factories import LettingFactory
 
 class ViewsTest(TestCase):
@@ -40,7 +40,7 @@ class ViewsTest(TestCase):
 def test_letting_view_use_factories(mock_get):
     # Replace 1 with the actual letting_id you want to test
 
-    # letting = LettingFactory(title='Mock Title', address=Address(id=1, street='Mock Address'))
+    # letting = LettingFactory(title='Mock Title', address=Addres(id=1, street='Mock Addres'))
     letting = LettingFactory(title='Mock Title')
     mock_get.return_value = letting
 
@@ -49,4 +49,4 @@ def test_letting_view_use_factories(mock_get):
 
     assert response.status_code == 200
     assert 'Mock Title' in response.content.decode('utf-8')
-    # assert 'Mock Address' in response.content.decode('utf-8')
+    # assert 'Mock Addres' in response.content.decode('utf-8')

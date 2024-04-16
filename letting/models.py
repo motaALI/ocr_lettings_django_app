@@ -3,9 +3,9 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinLengthValidator
 
 
-class Address(models.Model):
+class Addres(models.Model):
     """
-    Model representing an address.
+    Model representing an Addres.
 
     :param number: The street number.
     :type number: int
@@ -25,7 +25,7 @@ class Address(models.Model):
     :param country_iso_code: The ISO code of the country (3 characters).
     :type country_iso_code: str
 
-    :return: A string representation of the address.
+    :return: A string representation of the addres.
     :rtype: str
     """
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
@@ -45,15 +45,15 @@ class Letting(models.Model):
     :param title: The title of the letting.
     :type title: str
 
-    :param address: The address associated with the letting.
-    :type address: Address
+    :param Addres: The Addres associated with the letting.
+    :type Addres: Addres
 
     :return: A string representation of the letting.
     :rtype: str
     """
     
     title = models.CharField(max_length=256)
-    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Addres, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

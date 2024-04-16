@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 
 from user_profile.models import Profile
 
-from letting.models import Address, Letting
+from letting.models import Addres, Letting
 
 
 class AddressFactory(DjangoModelFactory):
     class Meta:
-        model = Address
+        model = Addres
 
     number = factory.Sequence(lambda n: n)
     street = factory.Faker('street_name')
