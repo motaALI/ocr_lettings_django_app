@@ -21,9 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,11 +51,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Remove Whitenoise middleware from MIDDLEWARE list
-MIDDLEWARE = [
-    mw for mw in MIDDLEWARE if mw != 'whitenoise.middleware.WhiteNoiseMiddleware'
-]
-
 ROOT_URLCONF = 'oc_lettings_site.urls'
 
 TEMPLATES = [
@@ -76,14 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Optionally, you can set STATICFILES_DIRS to include additional directories for static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -155,5 +142,5 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
