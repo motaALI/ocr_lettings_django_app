@@ -7,7 +7,7 @@ from oc_lettings_site import views
 from django.conf import settings
 from user_profile.views import profiles_index, profile
 from letting.views import lettings_index, letting
-
+from django.core.exceptions import PermissionDenied
 
 
 """
@@ -23,12 +23,20 @@ URL patterns for the application.
 Each path is associated with a specific view and has a corresponding name for reverse URL matching.
 """
 
+handler403 = 'oc_lettings_site.views.custom_403'
 handler404 = 'oc_lettings_site.views.custom_404'
 handler500 = 'oc_lettings_site.views.custom_500'
 
+def my_view(request):
+    some_condition = False
+    # Check some condition
+    if not some_condition:
+        # Raise PermissionDenied exception
+        raise PermissionDenied
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('unauth', my_view, name='unauth'),
     path('lettings/', lettings_index, name='lettings_index'),
     path('lettings/<int:letting_id>/', letting, name='letting'),
     path('profiles/', profiles_index, name='profiles_index'),
