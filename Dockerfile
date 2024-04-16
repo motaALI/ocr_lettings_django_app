@@ -22,6 +22,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy the project code into the container
 COPY . .
 
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
 # Expose the port number that Django runs on
 EXPOSE $PORT
 
