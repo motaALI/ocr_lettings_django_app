@@ -72,13 +72,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Optionally, you can set STATICFILES_DIRS to include additional directories for static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static')
 ]
 
 # Database
