@@ -27,16 +27,15 @@ handler403 = 'oc_lettings_site.views.custom_403'
 handler404 = 'oc_lettings_site.views.custom_404'
 handler500 = 'oc_lettings_site.views.custom_500'
 
-def my_view(request):
-    some_condition = False
-    # Check some condition
-    if not some_condition:
+def unauthorized_view(request):
+    is_authorized = False
+    if not is_authorized:
         # Raise PermissionDenied exception
         raise PermissionDenied
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('unauth', my_view, name='unauth'),
+    path('unauthorized', unauthorized_view, name='unauthorized'),
     path('lettings/', lettings_index, name='lettings_index'),
     path('lettings/<int:letting_id>/', letting, name='letting'),
     path('profiles/', profiles_index, name='profiles_index'),
