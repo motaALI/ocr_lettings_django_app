@@ -1,0 +1,27 @@
+[flake8]
+max-line-length = 99
+ignore = E203, E266, E501, W503
+
+exclude=
+    .gitignore,
+    .git,
+    tests.py,
+    letting\tests.py
+    letting\admin.py,
+    letting\management\commands\migrate_lettings.py,
+    user_profile\tests.py,
+    user_profile\admin.py,
+    oc_lettings_site\views.py,
+    oc_lettings_site\settings.py,
+    oc_lettings_site\test_settings.py,
+    oc_lettings_site\urls.py,
+    oc-lettings-site.sqlite3,
+    __pycache__,
+    docs/,
+    env/,
+    lettingsVenv/,
+    README.md,
+    requirements.txt,
+
+[tool.black]
+line-length = 99

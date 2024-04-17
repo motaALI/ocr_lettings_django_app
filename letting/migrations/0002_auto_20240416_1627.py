@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('letting', '0001_initial'),
+        ("letting", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Address',
-            new_name='Addres',
+            old_name="Address",
+            new_name="Addres",
         ),
     ]
     atomic = False

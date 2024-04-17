@@ -20,7 +20,7 @@ from django.contrib.auth.models import User
 #     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
 #     def __str__(self):
-        # return self.title
+# return self.title
 
 
 # class Profile(models.Model):

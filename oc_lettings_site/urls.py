@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
@@ -23,9 +22,10 @@ URL patterns for the application.
 Each path is associated with a specific view and has a corresponding name for reverse URL matching.
 """
 
-handler403 = 'oc_lettings_site.views.custom_403'
-handler404 = 'oc_lettings_site.views.custom_404'
-handler500 = 'oc_lettings_site.views.custom_500'
+handler403 = "oc_lettings_site.views.custom_403"
+handler404 = "oc_lettings_site.views.custom_404"
+handler500 = "oc_lettings_site.views.custom_500"
+
 
 def unauthorized_view(request):
     is_authorized = False
@@ -33,14 +33,15 @@ def unauthorized_view(request):
         # Raise PermissionDenied exception
         raise PermissionDenied
 
+
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('unauthorized', unauthorized_view, name='unauthorized'),
-    path('lettings/', lettings_index, name='lettings_index'),
-    path('lettings/<int:letting_id>/', letting, name='letting'),
-    path('profiles/', profiles_index, name='profiles_index'),
-    path('profiles/<str:username>/', profile, name='profile'),
-    path('admin/', admin.site.urls),
+    path("", views.index, name="index"),
+    path("unauthorized", unauthorized_view, name="unauthorized"),
+    path("lettings/", lettings_index, name="lettings_index"),
+    path("lettings/<int:letting_id>/", letting, name="letting"),
+    path("profiles/", profiles_index, name="profiles_index"),
+    path("profiles/<str:username>/", profile, name="profile"),
+    path("admin/", admin.site.urls),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

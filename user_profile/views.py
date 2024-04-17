@@ -1,7 +1,7 @@
-
 from django.shortcuts import render
 
 from user_profile.models import Profile
+
 
 def profiles_index(request):
     """
@@ -10,12 +10,13 @@ def profiles_index(request):
     :param request: The Django HttpRequest object.
     :type request: django.http.HttpRequest
 
-    :return: The HTTP response with the list of profiles rendered in the 'profiles_index.html' template.
+    :return: The HTTP response with the list of profiles
+     rendered in the 'profiles_index.html' template.
     :rtype: django.http.HttpResponse
     """
     profiles_list = Profile.objects.all()
-    context = {'profiles_list': profiles_list}
-    return render(request, 'profiles_index.html', context)
+    context = {"profiles_list": profiles_list}
+    return render(request, "profiles_index.html", context)
 
 
 def profile(request, username):
@@ -32,5 +33,5 @@ def profile(request, username):
     :rtype: django.http.HttpResponse
     """
     profile = Profile.objects.get(user__username=username)
-    context = {'profile': profile}
-    return render(request, 'profile.html', context)
+    context = {"profile": profile}
+    return render(request, "profile.html", context)

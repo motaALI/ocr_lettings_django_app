@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from letting.models import Letting
 
+
 def lettings_index(request):
     """
     View to display the list of all lettings.
@@ -14,8 +15,8 @@ def lettings_index(request):
     :rtype: django.http.HttpResponse
     """
     lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings_index.html', context)
+    context = {"lettings_list": lettings_list}
+    return render(request, "lettings_index.html", context)
 
 
 def letting(request, letting_id):
@@ -33,7 +34,7 @@ def letting(request, letting_id):
     """
     letting = Letting.objects.get(id=letting_id)
     context = {
-        'title': letting.title,
-        'address': letting.address,
+        "title": letting.title,
+        "address": letting.address,
     }
-    return render(request, 'letting.html', context)
+    return render(request, "letting.html", context)

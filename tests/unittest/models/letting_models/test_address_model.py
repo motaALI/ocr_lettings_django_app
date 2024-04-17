@@ -6,16 +6,30 @@ from tests.factories import AddressFactory
 
 
 @pytest.mark.django_db
-
 def test_create_address():
-    address = Addres(number=123, street="Main St", city="City", state="CA", zip_code=12345, country_iso_code="USA")
+    address = Addres(
+        number=123,
+        street="Main St",
+        city="City",
+        state="CA",
+        zip_code=12345,
+        country_iso_code="USA",
+    )
     address.save()
     assert address.id is not None
+
 
 @pytest.mark.django_db
 def test_read_address():
     # Create an address
-    address = Addres(number=123, street="Main St", city="City", state="CA", zip_code=12345, country_iso_code="USA")
+    address = Addres(
+        number=123,
+        street="Main St",
+        city="City",
+        state="CA",
+        zip_code=12345,
+        country_iso_code="USA",
+    )
     address.save()
 
     # Retrieve the address from the database
@@ -23,10 +37,18 @@ def test_read_address():
 
     assert retrieved_address is not None
 
+
 @pytest.mark.django_db
 def test_update_address():
     # Create an address
-    address = Addres(number=123, street="Main St", city="City", state="CA", zip_code=12345, country_iso_code="USA")
+    address = Addres(
+        number=123,
+        street="Main St",
+        city="City",
+        state="CA",
+        zip_code=12345,
+        country_iso_code="USA",
+    )
     address.save()
 
     # Update the address
@@ -38,10 +60,18 @@ def test_update_address():
 
     assert retrieved_address.street == "Updated St"
 
+
 @pytest.mark.django_db
 def test_delete_address():
     # Create an address
-    address = Addres(number=123, street="Main St", city="City", state="CA", zip_code=12345, country_iso_code="USA")
+    address = Addres(
+        number=123,
+        street="Main St",
+        city="City",
+        state="CA",
+        zip_code=12345,
+        country_iso_code="USA",
+    )
     address.save()
 
     # Delete the address
@@ -51,12 +81,20 @@ def test_delete_address():
     with pytest.raises(Addres.DoesNotExist):
         Addres.objects.get(id=address.id)
 
+
 class TestAddressModel(TestCase):
 
     def test_str_method(self):
         # Create an Addres instance using the factory
-        address = AddressFactory(number=123, street='Main St', city='City', state='ST', zip_code=12345, country_iso_code='USA')
+        address = AddressFactory(
+            number=123,
+            street="Main St",
+            city="City",
+            state="ST",
+            zip_code=12345,
+            country_iso_code="USA",
+        )
 
         # Assert that the __str__ method returns the expected string
-        expected_str = '123 Main St'
+        expected_str = "123 Main St"
         self.assertEqual(str(address), expected_str)
